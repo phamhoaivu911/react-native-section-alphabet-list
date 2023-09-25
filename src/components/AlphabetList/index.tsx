@@ -1,13 +1,15 @@
 import * as React from "react";
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef } from "react";
 import { SectionList, View, Text, SectionListData } from "react-native";
+// @ts-ignore
+import Animated from "react-native-reanimated";
 import sectionListGetItemLayout from "react-native-section-list-get-item-layout";
 import { getSectionData } from "../../utils/getSectionData";
 import { ListLetterIndex } from "../ListLetterIndex";
 import { IData, ISectionData, AlphabetListProps } from "./types";
 import { styles } from "./styles";
 import { sizes } from "../../values/sizes";
-import { DEFAULT_CHAR_INDEX } from "../../values/consts"
+import { DEFAULT_CHAR_INDEX } from "../../values/consts";
 
 export const AlphabetList: React.FC<AlphabetListProps> = (props) => {
   const {
@@ -27,41 +29,46 @@ export const AlphabetList: React.FC<AlphabetListProps> = (props) => {
     renderCustomListHeader,
     renderCustomIndexLetter,
     ...sectionListProps
-  } = props
+  } = props;
 
   const sectionListRef = useRef(null);
-  const [sectionData, setSectionData] = useState<ISectionData[]>([])
+  const [sectionData, setSectionData] = useState<ISectionData[]>([]);
 
   useEffect(() => {
-    setSectionData(getSectionData(data, index, uncategorizedAtTop))
-  }, [data])
+    setSectionData(getSectionData(data, index, uncategorizedAtTop));
+  }, [data]);
 
   const onScrollToSection = (sectionIndex: number) => {
     const sectionList = sectionListRef.current! as SectionList;
-    if (!sectionList) return
+    if (!sectionList) return;
 
     sectionList.scrollToLocation({
       sectionIndex,
       itemIndex: 0,
     });
-  }
-
+  };
 
   const onGetItemLayout: any = sectionListGetItemLayout({
     getItemHeight: (_rowData, sectionIndex: number, rowIndex: number) => {
-      return onGetItemHeight(sectionIndex, rowIndex)
+      return onGetItemHeight(sectionIndex, rowIndex);
     },
     getSectionHeaderHeight: () => sectionHeaderHeight,
     getSectionFooterHeight: () => 0,
     listHeaderHeight,
   });
 
-  const onRenderSectionHeader = ({ section }: { section: SectionListData<IData> }) => {
+  const onRenderSectionHeader = ({
+    section,
+  }: {
+    section: SectionListData<IData>;
+  }) => {
     if (renderCustomSectionHeader) return renderCustomSectionHeader(section);
 
     return (
       <View testID="header" style={styles.sectionHeaderContainer}>
-        <Text testID="header__label" style={styles.sectionHeaderLabel}>{section.title}</Text>
+        <Text testID="header__label" style={styles.sectionHeaderLabel}>
+          {section.title}
+        </Text>
       </View>
     );
   };
@@ -71,15 +78,16 @@ export const AlphabetList: React.FC<AlphabetListProps> = (props) => {
 
     return (
       <View testID="cell" style={styles.listItemContainer}>
-        <Text testID="cell__label" style={styles.listItemLabel}>{item.value}</Text>
+        <Text testID="cell__label" style={styles.listItemLabel}>
+          {item.value}
+        </Text>
       </View>
     );
   };
 
-
   return (
     <View style={[styles.container, style]}>
-      <SectionList
+      <Animated.SectionList
         {...sectionListProps}
         testID="sectionList"
         ref={sectionListRef}
@@ -102,4 +110,4 @@ export const AlphabetList: React.FC<AlphabetListProps> = (props) => {
       />
     </View>
   );
-}
+};
