@@ -45,6 +45,7 @@ const ListLetterIndex_1 = require("../ListLetterIndex");
 const styles_1 = require("./styles");
 const sizes_1 = require("../../values/sizes");
 const consts_1 = require("../../values/consts");
+const AnimatedSectionList = react_native_reanimated_1.default.createAnimatedComponent(react_native_1.SectionList);
 exports.AlphabetList = (props) => {
     const { data, index = consts_1.DEFAULT_CHAR_INDEX, style, indexContainerStyle, indexLetterStyle, indexLetterContainerStyle, letterListContainerStyle, getItemHeight: onGetItemHeight = () => sizes_1.sizes.itemHeight, sectionHeaderHeight = sizes_1.sizes.itemHeight, listHeaderHeight = sizes_1.sizes.listHeaderHeight, uncategorizedAtTop = false, renderCustomSectionHeader, renderCustomItem, renderCustomListHeader, renderCustomIndexLetter } = props, sectionListProps = __rest(props, ["data", "index", "style", "indexContainerStyle", "indexLetterStyle", "indexLetterContainerStyle", "letterListContainerStyle", "getItemHeight", "sectionHeaderHeight", "listHeaderHeight", "uncategorizedAtTop", "renderCustomSectionHeader", "renderCustomItem", "renderCustomListHeader", "renderCustomIndexLetter"]);
     const sectionListRef = react_1.useRef(null);
@@ -88,7 +89,7 @@ exports.AlphabetList = (props) => {
       </react_native_1.View>);
     };
     return (<react_native_1.View style={[styles_1.styles.container, style]}>
-      <react_native_reanimated_1.default.SectionList {...sectionListProps} testID="sectionList" ref={sectionListRef} sections={sectionData} keyExtractor={(item) => item.key} renderItem={onRenderItem} renderSectionHeader={onRenderSectionHeader} ListHeaderComponent={renderCustomListHeader} getItemLayout={onGetItemLayout}/>
+      <AnimatedSectionList {...sectionListProps} testID="sectionList" ref={sectionListRef} sections={sectionData} keyExtractor={(item) => item.key} renderItem={onRenderItem} renderSectionHeader={onRenderSectionHeader} ListHeaderComponent={renderCustomListHeader} getItemLayout={onGetItemLayout}/>
 
       <ListLetterIndex_1.ListLetterIndex sectionData={sectionData} onPressLetter={onScrollToSection} indexContainerStyle={indexContainerStyle} indexLetterStyle={indexLetterStyle} indexLetterContainerStyle={indexLetterContainerStyle} letterListContainerStyle={letterListContainerStyle} renderCustomIndexLetter={renderCustomIndexLetter}/>
     </react_native_1.View>);

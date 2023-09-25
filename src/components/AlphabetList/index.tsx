@@ -11,6 +11,8 @@ import { styles } from "./styles";
 import { sizes } from "../../values/sizes";
 import { DEFAULT_CHAR_INDEX } from "../../values/consts";
 
+const AnimatedSectionList = Animated.createAnimatedComponent(SectionList);
+
 export const AlphabetList: React.FC<AlphabetListProps> = (props) => {
   const {
     data,
@@ -87,7 +89,7 @@ export const AlphabetList: React.FC<AlphabetListProps> = (props) => {
 
   return (
     <View style={[styles.container, style]}>
-      <Animated.SectionList
+      <AnimatedSectionList
         {...sectionListProps}
         testID="sectionList"
         ref={sectionListRef}
